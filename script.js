@@ -1,19 +1,23 @@
 const gameBoard = (() => {
-    const gameBoard = ['X', 'O'];
-    const createPlayer = (name, mark) => {
-        return { 
+    const gameBoard = [];
+    const buttonStart = document.querySelector('#buttonStart');
+    const createPlayer = (/* name, */ /* mark */) => {
+        const name = document.querySelector('#player_1').value;
+
+        return {
             name,
-            mark,
-         };
+            // mark,
+        };
     }
+    // const test = () => {
+    //     console.log(document.querySelector('#player_1').value);
+    // }
+
+    buttonStart.addEventListener('click', createPlayer);
 
     return {
         createPlayer,
     };
 })();
 
-const player1 = gameBoard.createPlayer('Jim', 'X');
-const player2 = gameBoard.createPlayer('Nick', 'O');
-
-console.log(player1);
-console.log(player2);
+console.log(gameBoard);
