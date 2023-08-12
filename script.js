@@ -1,23 +1,24 @@
 const gameBoard = (() => {
-    const gameBoard = [];
-    const buttonStart = document.querySelector('#buttonStart');
-    const createPlayer = (/* name, */ /* mark */) => {
-        const name = document.querySelector('#player_1').value;
+    const form = document.querySelector('#form');
+    const players = [];
+    const handleSubmit = event => {
+        event.preventDefault();
 
-        return {
-            name,
-            // mark,
-        };
+        const formData = new FormData(form);
+        const Player = name => {
+            const playerName = name;
+
+            return { playerName };
+        }
+
+        for (const value of formData.values()) {
+            const player = Player(value);
+
+            players.push(player);
+        }
     }
-    // const test = () => {
-    //     console.log(document.querySelector('#player_1').value);
-    // }
 
-    buttonStart.addEventListener('click', createPlayer);
+    console.log(players);
 
-    return {
-        createPlayer,
-    };
+    form.addEventListener('submit', handleSubmit);
 })();
-
-console.log(gameBoard);
