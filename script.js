@@ -7,15 +7,20 @@ const gameBoard = (() => {
         const formData = new FormData(form);
         const Player = (name, mark) => {
             const playerName = name;
-            const playerMark = 'X';
+            const playerMark = mark;
 
             return { playerName, playerMark };
         }
+        
+        for (const pair of formData.entries()) {
+            if (pair[0] === 'playerOne') {
+                const player = Player(pair[1], 'X');
+                players.push(player);
+            } else {
+                const player = Player(pair[1], 'O');
+                players.push(player);
+            }
 
-        for (const value of formData.values()) {
-            const player = Player(value);
-
-            players.push(player);
             console.log(players);
         }
     }
