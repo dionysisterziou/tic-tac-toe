@@ -5,20 +5,20 @@ const gameBoard = (() => {
         event.preventDefault();
 
         const formData = new FormData(form);
-        const Player = name => {
+        const Player = (name, mark) => {
             const playerName = name;
+            const playerMark = 'X';
 
-            return { playerName };
+            return { playerName, playerMark };
         }
 
         for (const value of formData.values()) {
             const player = Player(value);
 
             players.push(player);
+            console.log(players);
         }
     }
-
-    console.log(players);
 
     form.addEventListener('submit', handleSubmit);
 })();
