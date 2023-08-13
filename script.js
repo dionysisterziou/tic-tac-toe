@@ -20,9 +20,9 @@ const gameBoard = (() => {
                 const player = Player(pair[1], 'O');
                 players.push(player);
             }
-
-            console.log(players);
         }
+
+        console.log(players);
     }
 
     form.addEventListener('submit', handleSubmit);
