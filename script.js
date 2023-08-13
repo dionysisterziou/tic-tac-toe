@@ -11,15 +11,16 @@ const gameBoard = (() => {
 
             return { playerName, playerMark };
         }
-        
+
         for (const pair of formData.entries()) {
-            if (pair[0] === 'playerOne') {
-                const player = Player(pair[1], 'X');
-                players.push(player);
-            } else {
-                const player = Player(pair[1], 'O');
-                players.push(player);
-            }
+            const playerNumber = pair[0];
+            const playerName = pair[1];
+
+            const player = playerNumber === 'playerOne' 
+                ? Player(playerName, 'X') 
+                : Player(playerName, 'O');
+
+            players.push(player);
         }
 
         console.log(players);
