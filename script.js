@@ -1,5 +1,7 @@
 const gameBoard = (() => {
     const gameBoard = [];
+
+    return { gameBoard };
 })();
 
 const displayController = (() => {
@@ -10,7 +12,7 @@ const Player = (name, mark) => {
     return { name, mark };
 }
 
-
+console.log(gameBoard.gameBoard);
 
 // const gameBoard = (() => {
 //     const form = document.querySelector('#form');
