@@ -1,12 +1,14 @@
-const Gameboard = {
-    gameboard: []
-};
+const gameBoard = (() => {
+    const gameBoard = [];
+})();
 
-console.log(Gameboard);
+const displayController = (() => {
 
+})();
 
-
-
+const Player = (name, mark) => {
+    return { name, mark };
+}
 
 
 
