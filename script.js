@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const gameBoard = [];
+    const gameBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
 
     return { gameBoard };
 })();
