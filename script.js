@@ -1,7 +1,17 @@
 const gameBoard = (() => {
     const gameBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
 
-    return { gameBoard };
+    function addValue() {
+        const element = document.querySelectorAll('.item');
+        element.forEach((element, index) => {
+            element.textContent = gameBoard[index]
+        });
+    }
+    addValue();
+
+    return { 
+        gameBoard
+     };
 })();
 
 const displayController = (() => {
