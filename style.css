@@ -1,11 +1,13 @@
 .container {
     display: inline-grid;
-    grid-template-columns: 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px;
+    grid-template: 50px 50px 50px / 50px 50px 50px;
     background-color: black;
     gap: 1px;
 }
 
 .item {
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
