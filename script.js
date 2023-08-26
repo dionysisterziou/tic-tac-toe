@@ -1,28 +1,34 @@
 const gameBoard = (() => {
     const gameBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
 
-    return {
-        gameBoard
-    };
-})();
-
-const displayController = (() => {
     function addMark() {
         const divs = document.querySelectorAll('.item');
 
         divs.forEach((div, index) => {
-            div.textContent = gameBoard.gameBoard[index]
+            div.textContent = gameBoard[index]
         });
     }
 
-    return { addMark };
-})(gameBoard.gameBoard);
+    return {
+        addMark
+    };
+})();
+
+const displayController = (() => {
+    const renderBoard = () => gameBoard.addMark;
+
+    return {
+        renderBoard
+    }
+})(gameBoard.addMark());
 
 const Player = (name, mark) => {
     return { name, mark };
+
 }
 
-displayController.addMark();
+displayController.renderBoard();
+
 
 
 
