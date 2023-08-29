@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const gameBoard = ['X', 'O', 'X', 'O'];
+    const gameBoard = [];
 
     function renderBoard() {
         const divs = document.querySelectorAll('.item');
@@ -9,8 +9,19 @@ const gameBoard = (() => {
         });
     }
 
+    function addMark() {
+        const divs = document.querySelectorAll('.item');
+
+        divs.forEach((div) => {
+            div.addEventListener('click', () => {
+                div.textContent = 'X';
+            });
+        });
+    }
+
     return {
-        renderBoard
+        renderBoard,
+        addMark
     };
 })();
 
@@ -28,9 +39,9 @@ const Player = (name, mark) => {
 }
 
 const player1 = Player('Nick', 'X');
-const player2 = Player('Jim', 'O');
 
-displayController.renderBoard;
+// displayController.renderBoard;
+gameBoard.addMark();
 
 
 
