@@ -22,7 +22,7 @@ const gameBoard = (() => {
                     div.textContent = 'O';
                     player = 'playerOne';
                 }
-            });
+            }, { once: true });
         });
     }
 
