@@ -1,34 +1,60 @@
 const gameBoard = (() => {
-    const gameBoard = [];
+    // const gameBoard = [];
+    const gameBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
     let player = 'playerOne';
 
     function renderBoard() {
-        const divs = document.querySelectorAll('.item');
+        const squares = document.querySelectorAll('.square');
 
-        divs.forEach((div, index) => {
-            div.textContent = gameBoard[index];
-        });
+        /* Display gameBoard values */
+
+        squares.forEach((square, index) => {
+            square.textContent = gameBoard[index];
+        })
+
+        /* Testing */
+
+        // gameBoard.forEach(marker => {
+        //     console.log(marker);
+        // })
+        // gameBoard.forEach(turn => console.log(turn.square))
+        // divs.forEach(element => {
+        //     console.log(element.dataset.id);
+        // })
+
+
     }
 
-    function addMark() {
-        const divs = document.querySelectorAll('.item');
+    function addMarker() {
+        const squares = document.querySelectorAll('.square');
 
-        divs.forEach((div) => {
-            div.addEventListener('click', () => {
+        squares.forEach((square) => {
+            square.addEventListener('click', () => {
                 if (player === 'playerOne') {
-                    div.textContent = 'X';
+                    // gameBoard.push('X');
+                    gameBoard.push({
+                        marker: 'X',
+                        square: square.dataset.id
+                    });
                     player = 'playerTwo';
                 } else {
-                    div.textContent = 'O';
+                    // gameBoard.push('O');
+                    gameBoard.push({
+                        marker: 'O',
+                        square: square.dataset.id
+                    });
                     player = 'playerOne';
                 }
+
+                console.log(gameBoard);
+                renderBoard();
             }, { once: true });
         });
     }
 
     return {
         renderBoard,
-        addMark
+        addMarker
     };
 })();
 
@@ -38,54 +64,11 @@ const displayController = (() => {
     return {
         renderBoard
     }
-})(gameBoard.renderBoard());
+})(gameBoard.renderBoard);
 
 const Player = (name) => {
     return { name };
 
 }
 
-const player1 = Player('Nick');
-
-// displayController.renderBoard;
-gameBoard.addMark();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const gameBoard = (() => {
-//     const form = document.querySelector('#form');
-//     const players = [];
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-
-//         const formData = new FormData(form);
-//         const Player = (playerName, playerMark) => {
-//             return { playerName, playerMark };
-//         }
-
-//         for (const pair of formData.entries()) {
-//             const playerNumber = pair[0];
-//             const playerName = pair[1];
-//             const player = playerNumber === 'playerOne'
-//                 ? Player(playerName, 'X')
-//                 : Player(playerName, 'O');
-
-//             players.push(player);
-//         }
-//     }
-
-//     form.addEventListener('submit', handleSubmit);
-// })();
-
+gameBoard.addMarker();

@@ -5,7 +5,7 @@
     gap: 1px;
 }
 
-.item {
+.square {
     background-color: white;
     display: flex;
     align-items: center;
