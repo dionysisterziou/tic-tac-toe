@@ -1,10 +1,9 @@
 const gameBoard = (() => {
+    let turn = 'playerOne';
     const gameBoard = [];
-    let player = 'playerOne';
-
-    function renderBoard() {
+    const renderBoard = () => {
         const squares = document.querySelectorAll('.square');
-
+        
         squares.forEach(square => {
             const squareNumber = square.dataset.number;
 
@@ -15,27 +14,25 @@ const gameBoard = (() => {
             })
         })
     }
-
-    function addMarker() {
+    const addMarker = () => {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                if (player === 'playerOne') {
+                if (turn === 'playerOne') {
                     gameBoard.push({
                         marker: 'X',
                         square: square.dataset.number
                     });
-                    player = 'playerTwo';
+                    turn = 'playerTwo';
                 } else {
                     gameBoard.push({
                         marker: 'O',
                         square: square.dataset.number
                     });
-                    player = 'playerOne';
+                    turn = 'playerOne';
                 }
 
-                console.log(gameBoard);
                 renderBoard();
             }, { once: true });
         });
@@ -48,16 +45,18 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
+    /* Testing */
+    let turn = 'playerOne';
+
     const renderBoard = gameBoard.renderBoard();
 
     return {
         renderBoard
     }
-})(gameBoard.renderBoard);
+})(/*gameBoard.renderBoard */);
 
 const Player = (name) => {
     return { name };
-
 }
 
 gameBoard.addMarker();
