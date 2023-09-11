@@ -1,57 +1,100 @@
 const gameBoard = (() => {
-    let turn = 'playerOne';
+    // let turn = 'playerOne';
     const gameBoard = [];
-    const renderBoard = () => {
-        const squares = document.querySelectorAll('.square');
-        
-        squares.forEach(square => {
-            const squareNumber = square.dataset.number;
+    // const renderBoard = () => {
+    //     const squares = document.querySelectorAll('.square');
 
-            gameBoard.forEach(turn => {
-                if (squareNumber === turn.square) {
+    //     squares.forEach(square => {
+    //         const squareNumber = square.dataset.number;
+
+    //         gameBoard.forEach(turn => {
+    //             if (squareNumber === turn.square) {
+    //                 square.textContent = turn.marker;
+    //             }
+    //         })
+    //     })
+    // }
+    const renderBoard = () => {
+        // const squares = document.querySelectorAll('.square');
+
+        // squares.forEach(square => {
+        //     const squareNumber = square.dataset.number;
+
+        //     gameBoard.forEach(turn => {
+        //         if (squareNumber === turn.square) {
                     square.textContent = turn.marker;
-                }
-            })
-        })
+                // }
+            // })
+        // })
     }
-    const addMarker = () => {
+    const addMarker = (marker, square) => {
+        gameBoard.push({
+            marker,
+            square
+        });
+    }
+    // const addMarker = (/* is was empty */ marker) => {
+    //     const squares = document.querySelectorAll('.square');
+
+    //     squares.forEach(square => {
+    //         square.addEventListener('click', () => {
+    //             // if (turn === 'playerOne') {
+    //             //     gameBoard.push({
+    //             //         // marker: 'X',
+    //             //         marker: marker,
+    //             //         square: square.dataset.number
+    //             //     });
+    //             //     // turn = 'playerTwo';
+    //             // } else {
+    //             //     gameBoard.push({
+    //             //         // marker: 'O',
+    //             //         marker: marker,
+    //             //         square: square.dataset.number
+    //             //     });
+    //             //     // turn = 'playerOne';
+    //             // }
+
+    //             gameBoard.push({
+    //                 marker: marker,
+    //                 square: square.dataset.number
+    //             });
+
+    //             renderBoard();
+    //         }, { once: true });
+    //     });
+    // }
+
+    return {
+        /* renderBoard, */
+        renderBoard,
+        addMarker,
+        gameBoard
+    };
+})();
+
+const displayController = (() => {
+    // const renderBoard = gameBoard.renderBoard();
+
+    /* Testing */
+    let turn = 'playerOne';
+    const printNewRound = () => {
+        gameBoard.renderBoard();
+    }
+    const playRound = () => {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                if (turn === 'playerOne') {
-                    gameBoard.push({
-                        marker: 'X',
-                        square: square.dataset.number
-                    });
-                    turn = 'playerTwo';
-                } else {
-                    gameBoard.push({
-                        marker: 'O',
-                        square: square.dataset.number
-                    });
-                    turn = 'playerOne';
-                }
+                let squareNumber = square.dataset.number;
 
-                renderBoard();
+                gameBoard.addMarker('X', squareNumber);
+                printNewRound();
             }, { once: true });
         });
     }
 
     return {
-        renderBoard,
-        addMarker
-    };
-})();
-
-const displayController = (() => {
-    /* Testing */
-    let turn = 'playerOne';
-
-    const renderBoard = gameBoard.renderBoard();
-
-    return {
-        renderBoard
+        playRound
     }
 })(/*gameBoard.renderBoard */);
 
@@ -59,4 +102,5 @@ const Player = (name) => {
     return { name };
 }
 
-gameBoard.addMarker();
+// gameBoard.addMarker('X');
+displayController.playRound();
