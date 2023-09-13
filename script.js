@@ -14,7 +14,7 @@ const gameBoard = (() => {
     //         })
     //     })
     // }
-    const renderBoard = () => {
+    const renderBoard = (square, marker) => {
         // const squares = document.querySelectorAll('.square');
 
         // squares.forEach(square => {
@@ -22,7 +22,12 @@ const gameBoard = (() => {
 
         //     gameBoard.forEach(turn => {
         //         if (squareNumber === turn.square) {
-                    square.textContent = turn.marker;
+                    // square.textContent = turn.marker;
+                    // console.log(square);
+                    // console.log(squareNumber);
+                    // console.log(marker);
+                    // console.log(gameBoard);
+                    square.textContent = marker;
                 // }
             // })
         // })
@@ -33,42 +38,12 @@ const gameBoard = (() => {
             square
         });
     }
-    // const addMarker = (/* is was empty */ marker) => {
-    //     const squares = document.querySelectorAll('.square');
-
-    //     squares.forEach(square => {
-    //         square.addEventListener('click', () => {
-    //             // if (turn === 'playerOne') {
-    //             //     gameBoard.push({
-    //             //         // marker: 'X',
-    //             //         marker: marker,
-    //             //         square: square.dataset.number
-    //             //     });
-    //             //     // turn = 'playerTwo';
-    //             // } else {
-    //             //     gameBoard.push({
-    //             //         // marker: 'O',
-    //             //         marker: marker,
-    //             //         square: square.dataset.number
-    //             //     });
-    //             //     // turn = 'playerOne';
-    //             // }
-
-    //             gameBoard.push({
-    //                 marker: marker,
-    //                 square: square.dataset.number
-    //             });
-
-    //             renderBoard();
-    //         }, { once: true });
-    //     });
-    // }
 
     return {
         /* renderBoard, */
         renderBoard,
-        addMarker,
-        gameBoard
+        addMarker /*,
+         gameBoard */
     };
 })();
 
@@ -77,18 +52,16 @@ const displayController = (() => {
 
     /* Testing */
     let turn = 'playerOne';
-    const printNewRound = () => {
-        gameBoard.renderBoard();
-    }
     const playRound = () => {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
                 let squareNumber = square.dataset.number;
+                let marker = 'X';
 
-                gameBoard.addMarker('X', squareNumber);
-                printNewRound();
+                gameBoard.addMarker(marker, squareNumber);
+                gameBoard.renderBoard(square, marker);
             }, { once: true });
         });
     }
