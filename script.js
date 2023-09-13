@@ -51,16 +51,15 @@ const displayController = (() => {
     // const renderBoard = gameBoard.renderBoard();
 
     /* Testing */
-    let turn = 'playerOne';
     const playRound = () => {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                let squareNumber = square.dataset.number;
-                let marker = 'X';
+                const squarePlace = square.dataset.place;
+                // const marker = 'X';
 
-                gameBoard.addMarker(marker, squareNumber);
+                gameBoard.addMarker(marker, squarePlace);
                 gameBoard.renderBoard(square, marker);
             }, { once: true });
         });
