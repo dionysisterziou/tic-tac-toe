@@ -3,13 +3,13 @@ const gameBoard = (() => {
     const gameBoard = [];
     const renderBoard = (square, marker) => {
         square.textContent = marker;
-    }
+    };
     const addMarker = (marker, square) => {
         gameBoard.push({
             marker,
             square
         });
-    }
+    };
     const changePlayer = () => {
         if (player === 1) {
             player = 2;
@@ -18,12 +18,14 @@ const gameBoard = (() => {
             player = 1;
             return 'O';
         }
-    }
+    };
+    const getLength = () => gameBoard.length;
 
     return {
         renderBoard,
         addMarker,
-        changePlayer
+        changePlayer,
+        getLength
     };
 })();
 
@@ -35,8 +37,11 @@ const displayController = (() => {
             square.addEventListener('click', () => {
                 const squarePlace = square.dataset.place;
                 let marker = gameBoard.changePlayer();
+                let arrayLength = gameBoard.getLength();
 
-
+                if (arrayLength >= 4) {
+                    console.log('Yes');
+                }
                 gameBoard.addMarker(marker, squarePlace);
                 gameBoard.renderBoard(square, marker);
             }, { once: true });
