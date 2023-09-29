@@ -1,13 +1,14 @@
 const gameBoard = (() => {
-    let player = 1;
     const gameBoard = [];
+    let player = 1;
+
     const renderBoard = (square, marker) => {
         square.textContent = marker;
     };
-    const addMarker = (marker, square) => {
+    const addMarker = (marker, squarePlace) => {
         gameBoard.push({
             marker,
-            square
+            squarePlace
         });
     };
     const changePlayer = () => {
@@ -19,30 +20,46 @@ const gameBoard = (() => {
             return 'O';
         }
     };
-    const getLength = () => gameBoard.length;
+    const checkResult = () => {
+        const winningCondition = [1, 2, 3];
+        const filteredGameBoard = gameBoard.filter(turn => winningCondition.includes(turn.squarePlace));
+        const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
+
+        if (isSameMarker) {
+            if (filteredGameBoard[0].marker === 'X') {
+                return 'Player 1 wins!';
+            } else {
+                return 'Player 2 wins!';
+            }
+        } else {
+            return 'Tie!';
+        }
+    }
 
     return {
         renderBoard,
         addMarker,
         changePlayer,
-        getLength
+        checkResult, 
     };
 })();
 
 const displayController = (() => {
+    let turn = 0;
+    
     const playRound = () => {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                const squarePlace = square.dataset.place;
+                const squarePlace = parseInt(square.dataset.place);
                 let marker = gameBoard.changePlayer();
-                let arrayLength = gameBoard.getLength();
 
-                if (arrayLength >= 4) {
-                    console.log('Yes');
-                }
                 gameBoard.addMarker(marker, squarePlace);
+                turn++;
+                if (turn >= 5) {
+                    console.log(gameBoard.checkResult());
+                }
                 gameBoard.renderBoard(square, marker);
             }, { once: true });
         });
