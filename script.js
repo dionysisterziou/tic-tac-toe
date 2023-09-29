@@ -25,14 +25,16 @@ const gameBoard = (() => {
         const filteredGameBoard = gameBoard.filter(turn => winningCondition.includes(turn.squarePlace));
         const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
 
-        if (isSameMarker) {
-            if (filteredGameBoard[0].marker === 'X') {
-                return 'Player 1 wins!';
+        if (filteredGameBoard.length === 3) {
+            if (isSameMarker) {
+                if (filteredGameBoard[0].marker === 'X') {
+                    console.log('Player 1 wins!');
+                } else {
+                    console.log('Player 2 wins!');
+                }
             } else {
-                return 'Player 2 wins!';
+                console.log('Tie!');
             }
-        } else {
-            return 'Tie!';
         }
     }
 
@@ -40,13 +42,13 @@ const gameBoard = (() => {
         renderBoard,
         addMarker,
         changePlayer,
-        checkResult, 
+        checkResult,
     };
 })();
 
 const displayController = (() => {
     let turn = 0;
-    
+
     const playRound = () => {
         const squares = document.querySelectorAll('.square');
 
@@ -57,9 +59,9 @@ const displayController = (() => {
 
                 gameBoard.addMarker(marker, squarePlace);
                 turn++;
-                if (turn >= 5) {
-                    console.log(gameBoard.checkResult());
-                }
+                // if (turn >= 5) {
+                gameBoard.checkResult();
+                // }
                 gameBoard.renderBoard(square, marker);
             }, { once: true });
         });
