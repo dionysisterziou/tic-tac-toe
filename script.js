@@ -33,16 +33,17 @@ const gameBoard = (() => {
 
         conditions.forEach((condition) => {
             const filteredGameBoard = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
-            const isSameMarker = filteredGameBoard.every(({marker}) => marker === filteredGameBoard[0].marker);
+            const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
 
             if (filteredGameBoard.length === 3) {
+                // console.log(gameBoard.length)
                 if (isSameMarker) {
                     if (filteredGameBoard[0].marker === 'X') {
                         console.log('Player 1 wins!');
                     } else {
                         console.log('Player 2 wins!');
                     }
-                } else {
+                } else if (gameBoard.length === 9) {
                     console.log('Tie!');
                 }
             }
