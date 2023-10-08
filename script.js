@@ -21,28 +21,39 @@ const gameBoard = (() => {
         }
     };
     const checkResult = () => {
-        const winningCondition = [1, 2, 3];
-        const filteredGameBoard = gameBoard.filter(turn => winningCondition.includes(turn.squarePlace));
-        const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
+        const conditions = [
+            [1, 2, 3],
+            [1, 4, 7],
+            [1, 5, 9],
+            [2, 5, 8],
+            [3, 6, 9],
+            [4, 5, 6],
+            [7, 8, 9]
+        ]
 
-        if (filteredGameBoard.length === 3) {
-            if (isSameMarker) {
-                if (filteredGameBoard[0].marker === 'X') {
-                    console.log('Player 1 wins!');
+        conditions.forEach((condition) => {
+            const filteredGameBoard = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
+            const isSameMarker = filteredGameBoard.every(({marker}) => marker === filteredGameBoard[0].marker);
+
+            if (filteredGameBoard.length === 3) {
+                if (isSameMarker) {
+                    if (filteredGameBoard[0].marker === 'X') {
+                        console.log('Player 1 wins!');
+                    } else {
+                        console.log('Player 2 wins!');
+                    }
                 } else {
-                    console.log('Player 2 wins!');
+                    console.log('Tie!');
                 }
-            } else {
-                console.log('Tie!');
             }
-        }
+        });
     }
 
     return {
         renderBoard,
         addMarker,
         changePlayer,
-        checkResult,
+        checkResult
     };
 })();
 
