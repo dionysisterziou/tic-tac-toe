@@ -31,23 +31,28 @@ const gameBoard = (() => {
             [7, 8, 9]
         ]
 
-        conditions.forEach((condition) => {
+        return conditions.some(function (condition) {
             const filteredGameBoard = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
             const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
 
             if (filteredGameBoard.length === 3) {
-                // console.log(gameBoard.length)
                 if (isSameMarker) {
                     if (filteredGameBoard[0].marker === 'X') {
-                        console.log('Player 1 wins!');
+                        console.log('Player 1 is the winner.');
+                        // isOver = true;
+                        return true;
                     } else {
-                        console.log('Player 2 wins!');
+                        console.log('Player 2 is the winner.');
+                        // isOver = true;
+                        return true;
                     }
                 } else if (gameBoard.length === 9) {
                     console.log('Tie!');
+                    // isOver = true;
+                    return true;
                 }
             }
-        });
+        })
     }
 
     return {
@@ -60,23 +65,28 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     let turn = 0;
+    let isOver = false;
 
     const playRound = () => {
+        // if (isOver !== true) {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                const squarePlace = parseInt(square.dataset.place);
-                let marker = gameBoard.changePlayer();
+                if (isOver !== true) {
+                    const squarePlace = parseInt(square.dataset.place);
+                    let marker = gameBoard.changePlayer();
 
-                gameBoard.addMarker(marker, squarePlace);
-                turn++;
-                // if (turn >= 5) {
-                gameBoard.checkResult();
-                // }
-                gameBoard.renderBoard(square, marker);
+                    gameBoard.addMarker(marker, squarePlace);
+                    turn++;
+                    if (gameBoard.checkResult()) {
+                        isOver = true;
+                    };
+                    gameBoard.renderBoard(square, marker);
+                }
             }, { once: true });
         });
+        // }
     }
 
     return {
