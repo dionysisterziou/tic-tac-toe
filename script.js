@@ -35,20 +35,17 @@ const gameBoard = (() => {
             const filteredGameBoard = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
             const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
 
-            if (filteredGameBoard.length === 3) {
+            if (filteredGameBoard.length === 3) { // Because the code will run always
                 if (isSameMarker) {
                     if (filteredGameBoard[0].marker === 'X') {
                         console.log('Player 1 is the winner.');
-                        // isOver = true;
                         return true;
                     } else {
                         console.log('Player 2 is the winner.');
-                        // isOver = true;
                         return true;
                     }
                 } else if (gameBoard.length === 9) {
                     console.log('Tie!');
-                    // isOver = true;
                     return true;
                 }
             }
@@ -68,25 +65,25 @@ const displayController = (() => {
     let isOver = false;
 
     const playRound = () => {
-        // if (isOver !== true) {
         const squares = document.querySelectorAll('.square');
 
         squares.forEach(square => {
             square.addEventListener('click', () => {
-                if (isOver !== true) {
+                if (!isOver) {
                     const squarePlace = parseInt(square.dataset.place);
                     let marker = gameBoard.changePlayer();
 
                     gameBoard.addMarker(marker, squarePlace);
                     turn++;
-                    if (gameBoard.checkResult()) {
-                        isOver = true;
-                    };
+                    if (turn >= 5) {
+                        if (gameBoard.checkResult()) {
+                            isOver = true;
+                        };
+                    }
                     gameBoard.renderBoard(square, marker);
                 }
             }, { once: true });
         });
-        // }
     }
 
     return {
