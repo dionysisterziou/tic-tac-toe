@@ -1,5 +1,5 @@
 .container {
-    /* display: inline-grid; */
+    display: inline-grid;
     grid-template: 50px 50px 50px / 50px 50px 50px;
     background-color: black;
     gap: 1px;
@@ -17,5 +17,5 @@
 }
 
 .show {
-    display: inline-grid;
+    display: block;
 }

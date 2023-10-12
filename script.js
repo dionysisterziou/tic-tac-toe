@@ -110,6 +110,6 @@ function handleSubmit(e) {
     const formData = new FormData(e.target);
     const formProperties =  Object.fromEntries(formData);
 
-    board.classList.add('show');
+    board.classList.remove('hide');
     form.classList.add('hide');
 }
