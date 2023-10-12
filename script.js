@@ -96,3 +96,20 @@ const Player = (name) => {
 }
 
 displayController.playRound();
+
+
+/* ----- FORM ----- */
+
+const form = document.querySelector('#form');
+const board = document.querySelector('#board');
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const formProperties =  Object.fromEntries(formData);
+
+    board.classList.add('show');
+    form.classList.add('hide');
+}
