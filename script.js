@@ -91,25 +91,57 @@ const displayController = (() => {
     }
 })();
 
-const Player = (name) => {
-    return { name };
+const createPlayer = (name, marker) => {
+    return { 
+        name,
+        marker
+     };
 }
 
 displayController.playRound();
-
 
 /* ----- FORM ----- */
 
 const form = document.querySelector('#form');
 const board = document.querySelector('#board');
+const restart = document.querySelector('#restart');
 form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const formProperties =  Object.fromEntries(formData);
+
+    for (const pair of formData.entries()) {
+        const playerNumber = pair[0];
+        const playerName = pair[1];
+
+
+        if (playerNumber === 'playerOne') {
+            const marker = 'X';
+
+            const player = createPlayer(playerName, marker);
+
+            console.log(player);
+        }
+    }
 
     board.classList.remove('hide');
+    restart.classList.remove('hide')
     form.classList.add('hide');
+
+
+
+
+
+    
+
+    /* TEST */
+    //const formData = new FormData(e.target);
+
+    // const formProperties =  Object.fromEntries(formData);
+    // const player = createPlayer(formProperties);
+
+    // console.log(formProperties);
+    // console.log(player);
 }
