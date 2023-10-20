@@ -106,6 +106,7 @@ const form = document.querySelector('#form');
 const board = document.querySelector('#board');
 const restart = document.querySelector('#restart');
 form.addEventListener('submit', handleSubmit);
+const players = [];
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -113,22 +114,27 @@ function handleSubmit(e) {
     const formData = new FormData(e.target);
 
     for (const pair of formData.entries()) {
-        const playerNumber = pair[0];
-        const playerName = pair[1];
+        const number = pair[0];
+        const name = pair[1];
 
 
-        if (playerNumber === 'playerOne') {
+        if (number === 'playerOne') {
             const marker = 'X';
+            const player = createPlayer(name, marker);
 
-            const player = createPlayer(playerName, marker);
+            players.push(player);
+        } else {
+            const marker = 'O';
+            const player = createPlayer(name, marker);
 
-            console.log(player);
+            players.push(player);
         }
     }
 
     board.classList.remove('hide');
     restart.classList.remove('hide')
     form.classList.add('hide');
+    console.log(players);
 
 
 
