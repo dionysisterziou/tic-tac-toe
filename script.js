@@ -1,7 +1,46 @@
 const gameBoard = (() => {
     const gameBoard = [];
-    let player = 1;
+    const form = document.querySelector('#form');
+    const board = document.querySelector('#board');
+    const restart = document.querySelector('#restart');
+    const players = [];
 
+    form.addEventListener('submit', handleSubmit);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        for (const pair of formData.entries()) {
+            const number = pair[0];
+            const name = pair[1];
+
+
+            if (number === 'playerOne') {
+                const marker = 'X';
+                const player = createPlayer(name, marker);
+
+                players.push(player);
+            } else {
+                const marker = 'O';
+                const player = createPlayer(name, marker);
+
+                players.push(player);
+            }
+        }
+
+        board.classList.remove('hide');
+        restart.classList.remove('hide')
+        form.classList.add('hide');
+    }
+
+    const createPlayer = (name, marker) => {
+        return {
+            name,
+            marker
+        };
+    }
     const renderBoard = (square, marker) => {
         square.textContent = marker;
     };
@@ -11,21 +50,13 @@ const gameBoard = (() => {
             squarePlace
         });
     };
-    const changePlayer = () => {
-        if (player === 1) {
-            player = 2;
-            return 'X';
-        } else {
-            player = 1;
-            return 'O';
-        }
-    };
     const checkResult = () => {
         const conditions = [
             [1, 2, 3],
             [1, 4, 7],
             [1, 5, 9],
             [2, 5, 8],
+            [3, 5, 7],
             [3, 6, 9],
             [4, 5, 6],
             [7, 8, 9]
@@ -55,13 +86,13 @@ const gameBoard = (() => {
     return {
         renderBoard,
         addMarker,
-        changePlayer,
-        checkResult
+        checkResult,
+        players
     };
 })();
 
 const displayController = (() => {
-    let turn = 0;
+    let turn = 1;
     let isOver = false;
 
     const playRound = () => {
@@ -70,17 +101,35 @@ const displayController = (() => {
         squares.forEach(square => {
             square.addEventListener('click', () => {
                 if (!isOver) {
-                    const squarePlace = parseInt(square.dataset.place);
-                    let marker = gameBoard.changePlayer();
 
-                    gameBoard.addMarker(marker, squarePlace);
-                    turn++;
-                    if (turn >= 5) {
-                        if (gameBoard.checkResult()) {
-                            isOver = true;
-                        };
+                    const squarePlace = parseInt(square.dataset.place);
+                    if (turn % 2 !== 0) {
+                        let player = gameBoard.players[0];
+                        let marker = player.marker;
+
+                        gameBoard.addMarker(marker, squarePlace);
+                        turn++;
+
+                        if (turn >= 5) {
+                            if (gameBoard.checkResult()) {
+                                isOver = true;
+                            };
+                        }
+                        gameBoard.renderBoard(square, marker);
+                    } else {
+                        let player = gameBoard.players[1];
+                        let marker = player.marker;
+
+                        gameBoard.addMarker(marker, squarePlace);
+                        turn++;
+
+                        if (turn >= 5) {
+                            if (gameBoard.checkResult()) {
+                                isOver = true;
+                            };
+                        }
+                        gameBoard.renderBoard(square, marker);
                     }
-                    gameBoard.renderBoard(square, marker);
                 }
             }, { once: true });
         });
@@ -91,63 +140,5 @@ const displayController = (() => {
     }
 })();
 
-const createPlayer = (name, marker) => {
-    return { 
-        name,
-        marker
-     };
-}
-
 displayController.playRound();
 
-/* ----- FORM ----- */
-
-const form = document.querySelector('#form');
-const board = document.querySelector('#board');
-const restart = document.querySelector('#restart');
-form.addEventListener('submit', handleSubmit);
-const players = [];
-
-function handleSubmit(e) {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-
-    for (const pair of formData.entries()) {
-        const number = pair[0];
-        const name = pair[1];
-
-
-        if (number === 'playerOne') {
-            const marker = 'X';
-            const player = createPlayer(name, marker);
-
-            players.push(player);
-        } else {
-            const marker = 'O';
-            const player = createPlayer(name, marker);
-
-            players.push(player);
-        }
-    }
-
-    board.classList.remove('hide');
-    restart.classList.remove('hide')
-    form.classList.add('hide');
-    console.log(players);
-
-
-
-
-
-    
-
-    /* TEST */
-    //const formData = new FormData(e.target);
-
-    // const formProperties =  Object.fromEntries(formData);
-    // const player = createPlayer(formProperties);
-
-    // console.log(formProperties);
-    // console.log(player);
-}
