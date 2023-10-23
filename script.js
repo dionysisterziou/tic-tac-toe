@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const gameBoard = [];
+    let gameBoard = [];
     const form = document.querySelector('#form');
     const board = document.querySelector('#board');
     const restart = document.querySelector('#restart');
@@ -62,20 +62,20 @@ const gameBoard = (() => {
             [7, 8, 9]
         ]
 
-        return conditions.some(function (condition) {
-            const filteredGameBoard = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
-            const isSameMarker = filteredGameBoard.every(({ marker }) => marker === filteredGameBoard[0].marker);
+        return conditions.some(function (condition, index) {
+            const winningValues= gameBoard.filter((turn) => condition.includes(turn.squarePlace)); 
+            const isSameMarker = winningValues.every(({ marker }) => marker === winningValues[0].marker);
 
-            if (filteredGameBoard.length === 3) { // Because the code will run always
+            if (winningValues.length === 3) { // Because the code will run always
                 if (isSameMarker) {
-                    if (filteredGameBoard[0].marker === 'X') {
+                    if (winningValues[0].marker === 'X') {
                         console.log('Player 1 is the winner.');
                         return true;
                     } else {
                         console.log('Player 2 is the winner.');
                         return true;
                     }
-                } else if (gameBoard.length === 9) {
+                } else if (index === 7 && gameBoard.length === 9) {
                     console.log('Tie!');
                     return true;
                 }
@@ -87,21 +87,23 @@ const gameBoard = (() => {
         renderBoard,
         addMarker,
         checkResult,
-        players
+        players,
+        gameBoard
     };
 })();
 
 const displayController = (() => {
     let turn = 1;
     let isOver = false;
+    let squares = document.querySelectorAll('.square');
+    
+    restart.addEventListener('click', restartGame);
 
     const playRound = () => {
-        const squares = document.querySelectorAll('.square');
-
         squares.forEach(square => {
             square.addEventListener('click', () => {
+                console.log(turn);
                 if (!isOver) {
-
                     const squarePlace = parseInt(square.dataset.place);
                     if (turn % 2 !== 0) {
                         let player = gameBoard.players[0];
@@ -113,7 +115,7 @@ const displayController = (() => {
                         if (turn >= 5) {
                             if (gameBoard.checkResult()) {
                                 isOver = true;
-                            };
+                            }
                         }
                         gameBoard.renderBoard(square, marker);
                     } else {
@@ -131,8 +133,18 @@ const displayController = (() => {
                         gameBoard.renderBoard(square, marker);
                     }
                 }
-            }, { once: true });
+            }/* , { once: true } */);
         });
+    }
+
+    function restartGame() {
+        gameBoard.gameBoard = [];
+
+        squares.forEach(square => {
+            square.textContent = '';
+        })
+
+        turn = 1;
     }
 
     return {
