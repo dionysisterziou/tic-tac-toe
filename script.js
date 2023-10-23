@@ -135,18 +135,18 @@ const displayController = (() => {
                         }
                     }
                 }
-            }/* , { once: true } */);
+            });
         });
     }
 
     function restartGame() {
+        isOver = false;
         gameBoard.gameBoard = [];
-
+        turn = 1;
+        
         squares.forEach(square => {
             square.textContent = '';
         })
-
-        turn = 1;
     }
 
     return {
@@ -155,4 +155,3 @@ const displayController = (() => {
 })();
 
 displayController.playRound();
-
