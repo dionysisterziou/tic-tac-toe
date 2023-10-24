@@ -99,7 +99,7 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
-    let turn = 0;
+    let turn = 1;
     let isOver = false;
     let squares = document.querySelectorAll('.square');
     let restart = document.querySelector('#restart');
@@ -146,7 +146,7 @@ const displayController = (() => {
                         }
 
                         // console.log(restarted)
-                        if (turn >= 5) {
+                        if (turn > 5) {
                             // console.log(restarted);
                             if (gameBoard.checkResult(restarted)) {
                                 isOver = true;
