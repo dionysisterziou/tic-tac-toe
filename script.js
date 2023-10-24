@@ -50,7 +50,7 @@ const gameBoard = (() => {
             squarePlace
         });
     };
-    const checkResult = () => {
+    const checkResult = (restarted) => {
         const conditions = [
             [1, 2, 3],
             [1, 4, 7],
@@ -62,8 +62,14 @@ const gameBoard = (() => {
             [7, 8, 9]
         ]
 
+        // console.log(restarted);
+
         return conditions.some(function (condition, index) {
-            const winningValues = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
+            let winningValues = gameBoard.filter((turn) => condition.includes(turn.squarePlace));
+            console.log(winningValues);
+            if (restarted === true) {
+                winningValues = [];
+            }
             const isSameMarker = winningValues.every(({ marker }) => marker === winningValues[0].marker);
 
             if (winningValues.length === 3) { // Because the code will run always
@@ -93,9 +99,11 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
-    let turn = 1;
+    let turn = 0;
     let isOver = false;
     let squares = document.querySelectorAll('.square');
+    let restart = document.querySelector('#restart');
+    let restarted = false;
 
     restart.addEventListener('click', restartGame);
 
@@ -113,11 +121,14 @@ const displayController = (() => {
                             gameBoard.addMarker(marker, squarePlace);
                             turn++;
 
-                            if (turn >= 5) {
-                                if (gameBoard.checkResult()) {
-                                    isOver = true;
-                                }
-                            }
+                            // // console.log(restarted)
+                            // if (turn >= 5) {
+                            //     // console.log(restarted);
+                            //     if (gameBoard.checkResult(restarted)) {
+                            //         isOver = true;
+                            //         restarted = false;
+                            //     }
+                            // }
                             gameBoard.renderBoard(square, marker);
                         } else {
                             let player = gameBoard.players[1];
@@ -126,12 +137,21 @@ const displayController = (() => {
                             gameBoard.addMarker(marker, squarePlace);
                             turn++;
 
-                            if (turn >= 5) {
-                                if (gameBoard.checkResult()) {
-                                    isOver = true;
-                                };
-                            }
+                            // if (turn >= 5) {
+                            //     if (gameBoard.checkResult()) {
+                            //         isOver = true;
+                            //     };
+                            // }
                             gameBoard.renderBoard(square, marker);
+                        }
+
+                        // console.log(restarted)
+                        if (turn >= 5) {
+                            // console.log(restarted);
+                            if (gameBoard.checkResult(restarted)) {
+                                isOver = true;
+                                restarted = false;
+                            }
                         }
                     }
                 }
@@ -141,9 +161,10 @@ const displayController = (() => {
 
     function restartGame() {
         isOver = false;
+        restarted = true;
         gameBoard.gameBoard = [];
         turn = 1;
-        
+
         squares.forEach(square => {
             square.textContent = '';
         })
