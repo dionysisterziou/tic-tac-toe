@@ -1,11 +1,11 @@
 const GameBoard = (() => {
-    const gameBoard = [];
+  const gameBoard = [];
 
-    return {
-        getGameBoard: function () {
-            return gameBoard;
-        }
+  return {
+    getGameBoard: function () {
+      return gameBoard;
     }
+  }
 })
 
 const DisplayController = (function () {})();

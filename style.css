@@ -1,4 +1,9 @@
-.container {
+.board {
+    display: grid;
+    grid-template: 50px 50px 50px / 50px 50px 50px;
+}
+
+/* .container {
     display: inline-grid;
     grid-template: 50px 50px 50px / 50px 50px 50px;
     background-color: black;
@@ -18,4 +23,4 @@
 
 .show {
     display: block;
-}
+} */
