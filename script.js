@@ -1,4 +1,4 @@
-const GameBoard = (() => {
+const GameBoard = (function () {
   const gameBoard = [];
 
   return {
@@ -6,9 +6,19 @@ const GameBoard = (() => {
       return gameBoard;
     }
   }
-})
+})();
 
-const DisplayController = (function () {})();
+const DisplayController = (function () {
+  const gameBoard = GameBoard.getGameBoard();
+
+  return {
+    renderContent: function() {
+      return gameBoard;
+    }
+  }
+})();
+
+console.log(DisplayController.renderContent());
 
 function createPlayer(name, marker) {
   return {
