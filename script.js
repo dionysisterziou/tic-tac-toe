@@ -1,5 +1,5 @@
 const GameBoard = (function () {
-  const gameBoard = [];
+  const gameBoard = ['X', 'O', 'X'];
 
   return {
     getGameBoard: function () {
@@ -10,6 +10,11 @@ const GameBoard = (function () {
 
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
+  const squares = document.querySelectorAll('#board button');
+
+  squares.forEach(function (square, index) {
+    square.textContent = gameBoard[index];
+  })
 
   return {
     renderContent: function() {
