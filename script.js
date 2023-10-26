@@ -11,18 +11,11 @@ const GameBoard = (() => {
 const DisplayController = (function () {})();
 
 function createPlayer(name, marker) {
-    let playerName = name;
-    let playerMarker = marker;
-    
-    return {
-      getPlayerName: function () {
-        return playerName;
-      },
-      getPlayerMarker: function () {
-        return playerMarker;
-      }
-    }
+  return {
+    name,
+    marker
   }
+}
 
 
 // const gameBoard = (() => {
