@@ -1,5 +1,5 @@
 const GameBoard = (function () {
-  const gameBoard = ['X', 'O', 'X'];
+  const gameBoard = ["X", "O", "X"];
 
   return {
     getGameBoard: function () {
@@ -10,14 +10,18 @@ const GameBoard = (function () {
 
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
-  const squares = document.querySelectorAll('#board button');
+  const squares = document.querySelectorAll("#board button");
+  let markIndex = 0;
+
+  function addMark(square, index) {
+    square.textContent = gameBoard[markIndex];
+    markIndex++;
+  }
 
   return {
     renderContent: function() {
       squares.forEach((square, index) => {
-        square.addEventListener('click', function () {
-          square.textContent = gameBoard[index];
-        });
+        square.addEventListener("click", () => addMark(square, index));
       })
     }
   }
@@ -37,15 +41,15 @@ DisplayController.renderContent();
 //     const gameBoard = [];
 //     const players = [];
 //     // let turn = 1;
-//     const form = document.querySelector('#form');
-//     const board = document.querySelector('#board');
-//     const restart = document.querySelector('#restart');
+//     const form = document.querySelector("#form");
+//     const board = document.querySelector("#board");
+//     const restart = document.querySelector("#restart");
 
 //     const getGameBoard = () => gameBoard;
 //     // const getTurn = () => turn;
 //     // const changeTurn = () => turn++;
 
-//     form.addEventListener('submit', handleSubmit);
+//     form.addEventListener("submit", handleSubmit);
 
 //     function handleSubmit(e) {
 //         e.preventDefault();
@@ -55,12 +59,12 @@ DisplayController.renderContent();
 //         for (const pair of formData.entries()) {
 //             const number = pair[0];
 //             const name = pair[1];
-//             let marker = '';
+//             let marker = "";
 
-//             if (number === 'playerOne') {
-//                 marker = 'X';
+//             if (number === "playerOne") {
+//                 marker = "X";
 //             } else {
-//                 marker = 'O';
+//                 marker = "O";
 //             }
 
 //             const player = createPlayer(name, marker);
@@ -70,9 +74,9 @@ DisplayController.renderContent();
 
 //         console.log(players);
 
-//         board.classList.remove('hide');
-//         restart.classList.remove('hide')
-//         form.classList.add('hide');
+//         board.classList.remove("hide");
+//         restart.classList.remove("hide")
+//         form.classList.add("hide");
 //     }
 
 //     const createPlayer = (name, marker) => {
@@ -109,15 +113,15 @@ DisplayController.renderContent();
 //             if (winningValues.length === 3) { // Because the code will run always
 //                 // console.log(winningValues);
 //                 if (isSameMarker) {
-//                     if (winningValues[0].marker === 'X') {
-//                         console.log('Player 1 is the winner.');
+//                     if (winningValues[0].marker === "X") {
+//                         console.log("Player 1 is the winner.");
 //                         return true;
 //                     } else {
-//                         console.log('Player 2 is the winner.');
+//                         console.log("Player 2 is the winner.");
 //                         return true;
 //                     }
 //                 } else if (index === 7 && gameBoard.length === 9) {
-//                     console.log('Tie!');
+//                     console.log("Tie!");
 //                     return true;
 //                 }
 //             }
@@ -141,15 +145,15 @@ DisplayController.renderContent();
 // const displayController = (() => {
 //     let turn = 1;
 //     let isOver = false;
-//     let squares = document.querySelectorAll('.square');
-//     let restart = document.querySelector('#restart');
+//     let squares = document.querySelectorAll(".square");
+//     let restart = document.querySelector("#restart");
     
-//     restart.addEventListener('click', restartGame);
+//     restart.addEventListener("click", restartGame);
 
 //     const playRound = () => {
 //         squares.forEach(square => {
-//             square.addEventListener('click', () => {
-//                 if (square.textContent === '') {
+//             square.addEventListener("click", () => {
+//                 if (square.textContent === "") {
 //                     console.log(turn);
 //                     console.log(gameBoard.getGameBoard());
 //                     if (!isOver) {
@@ -188,7 +192,7 @@ DisplayController.renderContent();
 //         turn = 1;
 
 //         squares.forEach(square => {
-//             square.textContent = '';
+//             square.textContent = "";
 //         })
 //     }
 
