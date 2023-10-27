@@ -12,25 +12,25 @@ const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelectorAll('#board button');
 
-  squares.forEach(function (square, index) {
-    square.textContent = gameBoard[index];
-  })
-
   return {
     renderContent: function() {
-      return gameBoard;
+      squares.forEach((square, index) => {
+        square.addEventListener('click', function () {
+          square.textContent = gameBoard[index];
+        });
+      })
     }
   }
 })();
 
-console.log(DisplayController.renderContent());
-
-function createPlayer(name, marker) {
+function createPlayer(name, mark) {
   return {
     name,
-    marker
+    mark
   }
 }
+
+DisplayController.renderContent();
 
 
 // const gameBoard = (() => {
