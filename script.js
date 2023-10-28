@@ -17,9 +17,10 @@ const GameBoard = (function () {
 
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
-  const squares = document.querySelectorAll("#board button");
+  const squares = document.querySelector("#board");
 
-  function addMark(square) {
+  function addMark(event) {
+    const square = event.target;
     const markIndex = GameBoard.getMarkIndex();
 
     square.textContent = gameBoard[markIndex];
@@ -27,10 +28,8 @@ const DisplayController = (function () {
   }
 
   return {
-    renderContent: function() {
-      squares.forEach((square) => {
-        square.addEventListener("click", () => addMark(square));
-      })
+    renderContent: function () {
+      squares.addEventListener("click", addMark);
     }
   }
 })();
