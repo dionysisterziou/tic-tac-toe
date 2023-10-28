@@ -1,16 +1,16 @@
 const GameBoard = (function () {
   const gameBoard = ["X", "O", "X"];
-  let markIndex = 0;
+  let markerIndex = 0;
 
   return {
     getGameBoard: function () {
       return [...gameBoard];
     },
-    incrementMarkIndex: function () {
-      return markIndex++;
+    incrementMarkerIndex: function () {
+      return markerIndex++;
     },
-    getMarkIndex: function () {
-      return markIndex;
+    getMarkerIndex: function () {
+      return markerIndex;
     }
   }
 })();
@@ -19,17 +19,19 @@ const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
 
-  function addMark(event) {
+  function addMarker(event) {
     const square = event.target;
-    const markIndex = GameBoard.getMarkIndex();
+    const markerIndex = GameBoard.getMarkerIndex();
 
-    square.textContent = gameBoard[markIndex];
-    GameBoard.incrementMarkIndex();
+    if (!square.textContent) {
+      square.textContent = gameBoard[markerIndex];
+      GameBoard.incrementMarkerIndex();
+    }
   }
 
   return {
     renderContent: function () {
-      squares.addEventListener("click", addMark);
+      squares.addEventListener("click", addMarker);
     }
   }
 })();
