@@ -4,7 +4,7 @@ const GameBoard = (function () {
 
   return {
     getGameBoard: function () {
-      return gameBoard;
+      return [...gameBoard];
     },
     incrementMarkIndex: function () {
       return markIndex++;
