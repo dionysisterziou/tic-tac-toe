@@ -1,16 +1,23 @@
 const GameBoard = (function () {
   const gameBoard = [];
   let turn = 1;
+  let markIndex = 0;
 
   return {
     getGameBoard: function () {
       return [...gameBoard];
     },
+    getTurn: function () {
+      return turn;
+    },
+    getMarkIndex: function () {
+      return markIndex;
+    },
     incrementTurn: function () {
       return turn++;
     },
-    getturn: function () {
-      return turn;
+    incrementMarkIndex: function () {
+      return markIndex++;
     }
   }
 })();
@@ -23,21 +30,21 @@ const DisplayController = (function () {
 
   function addMarker(event) {
     const square = event.target;
-    const turn = GameBoard.getturn();
+    const turn = GameBoard.getTurn();
+    const markIndex = GameBoard.getMarkIndex();
 
     if (square.textContent === "") {
       valueArray.push(parseInt(square.getAttribute("data-value")));
 
       if (isOdd(turn)) {
         gameBoard.push("X");
-        square.textContent = "X"
       } else {
         gameBoard.push("O");
-        square.textContent = "O";
       }
 
-      console.log(gameBoard);
+      square.textContent = gameBoard[markIndex];
       GameBoard.incrementTurn();
+      GameBoard.incrementMarkIndex();
 
       // if (checkResult()) {
       //   console.log("You win.");
