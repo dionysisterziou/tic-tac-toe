@@ -1,16 +1,16 @@
 const GameBoard = (function () {
-  const gameBoard = ["X", "O", "X"];
-  let markerIndex = 0;
+  const gameBoard = [];
+  let turn = 1;
 
   return {
     getGameBoard: function () {
       return [...gameBoard];
     },
-    incrementMarkerIndex: function () {
-      return markerIndex++;
+    incrementTurn: function () {
+      return turn++;
     },
-    getMarkerIndex: function () {
-      return markerIndex;
+    getturn: function () {
+      return turn;
     }
   }
 })();
@@ -23,26 +23,36 @@ const DisplayController = (function () {
 
   function addMarker(event) {
     const square = event.target;
-    const markerIndex = GameBoard.getMarkerIndex();
+    const turn = GameBoard.getturn();
 
     if (square.textContent === "") {
       valueArray.push(parseInt(square.getAttribute("data-value")));
-      square.textContent = gameBoard[markerIndex];
-      GameBoard.incrementMarkerIndex();
 
-      console.log(valueArray)
-
-      if (checkResult()) {
-        console.log("You win.");
+      if (isOdd(turn)) {
+        gameBoard.push("X");
+        square.textContent = "X"
+      } else {
+        gameBoard.push("O");
+        square.textContent = "O";
       }
+
+      console.log(gameBoard);
+      GameBoard.incrementTurn();
+
+      // if (checkResult()) {
+      //   console.log("You win.");
+      // }
     }
   }
 
-  function checkResult() {
-    return conditions.every(function (condition) {
-      return valueArray.includes(condition);
-    })
+  function isOdd(number) {
+    return number % 2 === 1;
   }
+  // function checkResult() {
+  //   return conditions.every(function (condition) {
+  //     return valueArray.includes(condition);
+  //   })
+  // }
 
   return {
     renderBoard: function () {
