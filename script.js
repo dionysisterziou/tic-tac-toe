@@ -18,32 +18,47 @@ const GameBoard = (function () {
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
+  const conditions = [1, 2, 3];
+  const valueArray = [];
 
   function addMarker(event) {
     const square = event.target;
     const markerIndex = GameBoard.getMarkerIndex();
 
-    if (!square.textContent) {
+    if (square.textContent === "") {
+      valueArray.push(parseInt(square.getAttribute("data-value")));
       square.textContent = gameBoard[markerIndex];
       GameBoard.incrementMarkerIndex();
+
+      console.log(valueArray)
+
+      if (checkResult()) {
+        console.log("You win.");
+      }
     }
   }
 
+  function checkResult() {
+    return conditions.every(function (condition) {
+      return valueArray.includes(condition);
+    })
+  }
+
   return {
-    renderContent: function () {
+    renderBoard: function () {
       squares.addEventListener("click", addMarker);
     }
   }
 })();
 
-function createPlayer(name, mark) {
+function createPlayer(name, marker) {
   return {
     name,
-    mark
+    marker
   }
 }
 
-DisplayController.renderContent();
+DisplayController.renderBoard();
 
 
 // const gameBoard = (() => {
