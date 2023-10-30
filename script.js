@@ -34,15 +34,13 @@ const DisplayController = (function () {
     const markerIndex = GameBoard.getMarkerIndex();
 
     if (square.textContent === "") {
-      const position = parseInt(square.getAttribute("data-position"))
+      const position = parseInt(square.getAttribute("data-position"));
+      const marker = isOdd(turn) ? "X" : "O";
 
       positions.push(position);
-      gameBoard.push({
-        marker: isOdd(turn) ? "X" : "O",
-        position: position
-      });
-      square.textContent = gameBoard[markerIndex];
-
+      gameBoard.push({ marker, position });
+      square.textContent = marker;
+      
       GameBoard.incrementTurn();
       GameBoard.incrementMarkerIndex();
     }
