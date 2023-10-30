@@ -1,7 +1,6 @@
 const GameBoard = (function () {
   const gameBoard = [];
   let turn = 1;
-  let markerIndex = 0;
 
   return {
     getGameBoard: function () {
@@ -10,14 +9,8 @@ const GameBoard = (function () {
     getTurn: function () {
       return turn;
     },
-    getMarkerIndex: function () {
-      return markerIndex;
-    },
     incrementTurn: function () {
       return turn++;
-    },
-    incrementMarkerIndex: function () {
-      return markerIndex++;
     }
   }
 })();
@@ -26,23 +19,19 @@ const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
   const conditions = [1, 2, 3];
-  const positions = [];
 
   function addMarker(event) {
     const square = event.target;
     const turn = GameBoard.getTurn();
-    const markerIndex = GameBoard.getMarkerIndex();
 
     if (square.textContent === "") {
       const position = parseInt(square.getAttribute("data-position"));
       const marker = isOdd(turn) ? "X" : "O";
 
-      positions.push(position);
       gameBoard.push({ marker, position });
       square.textContent = marker;
-      
+
       GameBoard.incrementTurn();
-      GameBoard.incrementMarkerIndex();
     }
   }
 
