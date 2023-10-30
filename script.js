@@ -37,14 +37,11 @@ const DisplayController = (function () {
       const position = parseInt(square.getAttribute("data-position"))
 
       positions.push(position);
-      gameBoard.push(isOdd(turn) ? "X" : "O");
+      gameBoard.push({
+        marker: isOdd(turn) ? "X" : "O",
+        position: position
+      });
       square.textContent = gameBoard[markerIndex];
-
-      // if (checkResult()) {
-      //   if (checkSameMarker()) {
-
-      //   }
-      // }
 
       GameBoard.incrementTurn();
       GameBoard.incrementMarkerIndex();
