@@ -26,7 +26,7 @@ const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
   const conditions = [1, 2, 3];
-  const valueArray = [];
+  const positions = [];
 
   function addMarker(event) {
     const square = event.target;
@@ -34,26 +34,32 @@ const DisplayController = (function () {
     const markerIndex = GameBoard.getMarkerIndex();
 
     if (square.textContent === "") {
-      valueArray.push(parseInt(square.getAttribute("data-value")));
+      const position = parseInt(square.getAttribute("data-position"))
+
+      positions.push(position);
       gameBoard.push(isOdd(turn) ? "X" : "O");
       square.textContent = gameBoard[markerIndex];
-      GameBoard.incrementTurn();
-      GameBoard.incrementMarkerIndex();
 
       // if (checkResult()) {
-      //   console.log("You win.");
+      //   if (checkSameMarker()) {
+
+      //   }
       // }
+
+      GameBoard.incrementTurn();
+      GameBoard.incrementMarkerIndex();
     }
   }
 
   function isOdd(number) {
     return number % 2 === 1;
   }
-  // function checkResult() {
-  //   return conditions.every(function (condition) {
-  //     return valueArray.includes(condition);
-  //   })
-  // }
+
+  function checkResult() {
+    return conditions.every(function (condition) {
+      return positions.includes(condition);
+    })
+  }
 
   return {
     renderBoard: function () {
