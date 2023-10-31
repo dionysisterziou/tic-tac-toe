@@ -33,6 +33,16 @@ const DisplayController = (function () {
 
       const matchingSquares = findMatchingSquares();
 
+      if (matchingSquares.length === 3) {
+        const isSameMarker = matchingSquares.every(function (square) {
+          return square.marker === matchingSquares[0].marker;
+        })
+
+        if (isSameMarker) {
+          console.log("We have a winner!");
+        }
+      }
+
       GameBoard.incrementTurn();
     }
   }
