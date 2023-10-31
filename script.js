@@ -34,9 +34,7 @@ const DisplayController = (function () {
       const matchingSquares = findMatchingSquares();
 
       if (matchingSquares.length === 3) {
-        const isSameMarker = matchingSquares.every(function (square) {
-          return square.marker === matchingSquares[0].marker;
-        })
+        const isSameMarker = checkForSameMarker(matchingSquares);
 
         if (isSameMarker) {
           console.log("We have a winner!");
@@ -54,6 +52,12 @@ const DisplayController = (function () {
   function findMatchingSquares() {
     return gameBoard.filter(function (turn) {
       return conditions.includes(turn.position);
+    })
+  }
+
+  function checkForSameMarker(matchingSquares) {
+    return matchingSquares.every(function (square) {
+      return square.marker === matchingSquares[0].marker;
     })
   }
 
