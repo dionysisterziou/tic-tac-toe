@@ -50,15 +50,11 @@ const DisplayController = (function () {
   }
 
   function findMatchingSquares() {
-    return gameBoard.filter(function (turn) {
-      return conditions.includes(turn.position);
-    })
+    return gameBoard.filter((square) => conditions.includes(square.position));
   }
 
   function checkForSameMarker(matchingSquares) {
-    return matchingSquares.every(function (square) {
-      return square.marker === matchingSquares[0].marker;
-    })
+    return matchingSquares.every((square) => square.marker === matchingSquares[0].marker);
   }
 
   return {
