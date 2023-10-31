@@ -31,6 +31,8 @@ const DisplayController = (function () {
       gameBoard.push({ marker, position });
       square.textContent = marker;
 
+      const matchingSquares = findMatchingSquares();
+
       GameBoard.incrementTurn();
     }
   }
@@ -39,9 +41,9 @@ const DisplayController = (function () {
     return number % 2 === 1;
   }
 
-  function checkResult() {
-    return conditions.every(function (condition) {
-      return positions.includes(condition);
+  function findMatchingSquares() {
+    return gameBoard.filter(function (turn) {
+      return conditions.includes(turn.position);
     })
   }
 
