@@ -18,7 +18,16 @@ const GameBoard = (function () {
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
-  const conditions = [1, 2, 3];
+  const conditions = [
+    [1, 2, 3],
+    [1, 4, 7],
+    [1, 5, 9],
+    [2, 5, 8],
+    [3, 5, 7],
+    [3, 6, 9],
+    [4, 5, 6],
+    [7, 8, 9]
+  ]
 
   function addMarker(event) {
     const square = event.target;
@@ -33,13 +42,7 @@ const DisplayController = (function () {
 
       const matchingSquares = findMatchingSquares();
 
-      if (matchingSquares.length === 3) {
-        const isSameMarker = checkForSameMarker(matchingSquares);
-
-        if (isSameMarker) {
-          console.log("We have a winner!");
-        }
-      }
+      console.log(matchingSquares);
 
       GameBoard.incrementTurn();
     }
@@ -50,7 +53,19 @@ const DisplayController = (function () {
   }
 
   function findMatchingSquares() {
-    return gameBoard.filter((square) => conditions.includes(square.position));
+    for (const condition of conditions) {
+      const matchingSquares = gameBoard.filter((square) => condition.includes(square.position));
+
+      if (matchingSquares.length === 3) {
+        const isSameMarker = checkForSameMarker(matchingSquares);
+
+        if (isSameMarker) {
+          return "We have a winner!";
+        }
+      }
+    }
+
+    return "Nothing yet.";
   }
 
   function checkForSameMarker(matchingSquares) {
