@@ -1,24 +1,18 @@
 const GameBoard = (function () {
   const gameBoard = [];
+  const getGameBoard = () => [...gameBoard];
+  const getTurn = () => turn;
+  const incrementTurn = () => turn++;
   let turn = 1;
 
-  return {
-    getGameBoard: function () {
-      return [...gameBoard];
-    },
-    getTurn: function () {
-      return turn;
-    },
-    incrementTurn: function () {
-      return turn++;
-    }
-  }
+  return { getGameBoard, getTurn, incrementTurn };
 })();
 
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
-  const MAX_TURNS = 9;
+  const maxTurns = 9;
+  const renderBoard = () => squares.addEventListener("click", addMarker);
   const conditions = [
     [1, 2, 3],
     [1, 4, 7],
@@ -46,7 +40,7 @@ const DisplayController = (function () {
 
       if (weHaveAWinner) {
         console.log("We have a winner!");
-      } else if (turn === MAX_TURNS) {
+      } else if (turn === maxTurns) {
         console.log("Draw");
       } else {
         GameBoard.incrementTurn();
@@ -78,11 +72,7 @@ const DisplayController = (function () {
     return matchingSquares.every((square) => square.marker === matchingSquares[0].marker);
   }
 
-  return {
-    renderBoard: function () {
-      squares.addEventListener("click", addMarker);
-    }
-  }
+  return { renderBoard };
 })();
 
 function createPlayer(name, marker) {
