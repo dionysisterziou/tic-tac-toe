@@ -18,6 +18,7 @@ const GameBoard = (function () {
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
+  const MAX_TURNS = 9;
   const conditions = [
     [1, 2, 3],
     [1, 4, 7],
@@ -45,7 +46,7 @@ const DisplayController = (function () {
 
       if (weHaveAWinner) {
         console.log("We have a winner!");
-      } else if (turn === 9) {
+      } else if (turn === MAX_TURNS) {
         console.log("Draw");
       } else {
         GameBoard.incrementTurn();
@@ -65,7 +66,7 @@ const DisplayController = (function () {
         const isSameMarker = checkForSameMarker(matchingSquares);
 
         if (isSameMarker) {
-          return "We have a winner!";
+          return true;
         }
       }
     }
