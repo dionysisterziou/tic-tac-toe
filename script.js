@@ -32,19 +32,24 @@ const DisplayController = (function () {
   function addMarker(event) {
     const square = event.target;
     const turn = GameBoard.getTurn();
+    const isSquareEmpty = square.textContent === "" ? true : false;
 
-    if (square.textContent === "") {
+    if (isSquareEmpty) {
       const position = parseInt(square.getAttribute("data-position"));
       const marker = isOdd(turn) ? "X" : "O";
 
       gameBoard.push({ marker, position });
       square.textContent = marker;
 
-      const matchingSquares = findMatchingSquares();
+      const weHaveAWinner = checkResult();
 
-      console.log(matchingSquares);
-
-      GameBoard.incrementTurn();
+      if (weHaveAWinner) {
+        console.log("We have a winner!");
+      } else if (turn === 9) {
+        console.log("Draw");
+      } else {
+        GameBoard.incrementTurn();
+      }
     }
   }
 
@@ -52,7 +57,7 @@ const DisplayController = (function () {
     return number % 2 === 1;
   }
 
-  function findMatchingSquares() {
+  function checkResult() {
     for (const condition of conditions) {
       const matchingSquares = gameBoard.filter((square) => condition.includes(square.position));
 
@@ -65,7 +70,7 @@ const DisplayController = (function () {
       }
     }
 
-    return "Nothing yet.";
+    return null;
   }
 
   function checkForSameMarker(matchingSquares) {
