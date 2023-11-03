@@ -40,6 +40,7 @@ const DisplayController = (function () {
 
       if (weHaveAWinner) {
         console.log("We have a winner!");
+        squares.removeEventListener("click", addMarker);
       } else if (turn === maxTurns) {
         console.log("Draw");
       } else {
