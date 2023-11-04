@@ -84,6 +84,7 @@ const DisplayController = (function () {
     const playerTwo = createPlayer(playerTwoName, "O");
 
     console.log(playerOne, playerTwo);
+    form.reset();
   })
 
   return { renderBoard };
