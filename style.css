@@ -1,26 +1,8 @@
-#board {
+.game-board {
     display: grid;
     grid-template: 50px 50px 50px / 50px 50px 50px;
 }
 
-/* .container {
-    display: inline-grid;
-    grid-template: 50px 50px 50px / 50px 50px 50px;
-    background-color: black;
-    gap: 1px;
-}
-
-.square {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hide {
+.hide-element {
     display: none;
 }
-
-.show {
-    display: block;
-} */
