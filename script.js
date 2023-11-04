@@ -11,6 +11,7 @@ const GameBoard = (function () {
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
+  const form = document.querySelector("#form");
   const maxTurns = 9;
   const renderBoard = () => squares.addEventListener("click", addMarker);
   const conditions = [
@@ -72,6 +73,18 @@ const DisplayController = (function () {
   function checkForSameMarker(matchingSquares) {
     return matchingSquares.every((square) => square.marker === matchingSquares[0].marker);
   }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const playerOneName = document.querySelector("#playerOneName").value;
+    const playerTwoName = document.querySelector("#playerTwoName").value;
+
+    const playerOne = createPlayer(playerOneName, "X");
+    const playerTwo = createPlayer(playerTwoName, "O");
+
+    console.log(playerOne, playerTwo);
+  })
 
   return { renderBoard };
 })();
