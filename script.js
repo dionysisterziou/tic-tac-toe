@@ -11,6 +11,7 @@ const GameBoard = (function () {
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
   const squares = document.querySelector("#board");
+  const board = document.querySelector("#board");
   const form = document.querySelector("#form");
   const maxTurns = 9;
   const renderBoard = () => squares.addEventListener("click", addMarker);
@@ -84,7 +85,8 @@ const DisplayController = (function () {
     const playerOne = createPlayer(playerOneName, "X");
     const playerTwo = createPlayer(playerTwoName, "O");
 
-    console.log(playerOne, playerTwo);
+    board.classList.remove("hide-element");
+    form.classList.add("hide-element");
   }
 
   return {
