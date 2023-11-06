@@ -14,6 +14,7 @@ const DisplayController = (function () {
   const form = document.querySelector("#form");
   const maxTurns = 9;
   const renderBoard = () => squares.addEventListener("click", addMarker);
+  const handleSubmit = () => form.addEventListener("submit", initializePlayers);
   const conditions = [
     [1, 2, 3],
     [1, 4, 7],
@@ -74,7 +75,7 @@ const DisplayController = (function () {
     return matchingSquares.every((square) => square.marker === matchingSquares[0].marker);
   }
 
-  form.addEventListener("submit", function (event) {
+  function initializePlayers(event) {
     event.preventDefault();
 
     const playerOneName = document.querySelector("#playerOneName").value;
@@ -84,10 +85,12 @@ const DisplayController = (function () {
     const playerTwo = createPlayer(playerTwoName, "O");
 
     console.log(playerOne, playerTwo);
-    form.reset();
-  })
+  }
 
-  return { renderBoard };
+  return {
+    renderBoard,
+    handleSubmit
+  };
 })();
 
 function createPlayer(name, marker) {
@@ -98,3 +101,4 @@ function createPlayer(name, marker) {
 }
 
 DisplayController.renderBoard();
+DisplayController.handleSubmit();
