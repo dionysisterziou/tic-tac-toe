@@ -1,11 +1,13 @@
 const GameBoard = (function () {
   const gameBoard = [];
+  const players = [];
+  const addPlayer = (player) => players.push(player);
   const getGameBoard = () => [...gameBoard];
   const getTurn = () => turn;
   const incrementTurn = () => turn++;
   let turn = 1;
 
-  return { getGameBoard, getTurn, incrementTurn };
+  return { getGameBoard, getTurn, incrementTurn, addPlayer, players };
 })();
 
 const DisplayController = (function () {
@@ -81,9 +83,13 @@ const DisplayController = (function () {
 
     const playerOneName = document.querySelector("#playerOneName").value;
     const playerTwoName = document.querySelector("#playerTwoName").value;
-
     const playerOne = createPlayer(playerOneName, "X");
     const playerTwo = createPlayer(playerTwoName, "O");
+
+    GameBoard.addPlayer(playerOne);
+    GameBoard.addPlayer(playerTwo);
+
+    console.log(GameBoard.players);
 
     board.classList.remove("hide-element");
     form.classList.add("hide-element");
