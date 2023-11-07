@@ -2,16 +2,18 @@ const GameBoard = (function () {
   const gameBoard = [];
   const players = [];
   const addPlayer = (player) => players.push(player);
-  const getGameBoard = () => [...gameBoard];
+  const getGameBoard = () => gameBoard;
   const getTurn = () => turn;
+  const getPlayers = () => players;
   const incrementTurn = () => turn++;
   let turn = 1;
 
-  return { getGameBoard, getTurn, incrementTurn, addPlayer, players };
+  return { getGameBoard, getTurn, incrementTurn, addPlayer, getPlayers };
 })();
 
 const DisplayController = (function () {
   const gameBoard = GameBoard.getGameBoard();
+  const players = GameBoard.getPlayers();
   const squares = document.querySelector("#board");
   const board = document.querySelector("#board");
   const form = document.querySelector("#form");
@@ -30,6 +32,7 @@ const DisplayController = (function () {
   ]
 
   function addMarker(event) {
+    console.log(players);
     const square = event.target;
     const turn = GameBoard.getTurn();
     const isSquareEmpty = square.textContent === "" ? true : false;
