@@ -21,6 +21,7 @@ const DisplayController = (function () {
   const maxTurns = 9;
   const renderBoard = () => squares.addEventListener("click", addMarker);
   const handleSubmit = () => form.addEventListener("submit", initializePlayers);
+  const restartGame = () => restartButton.addEventListener("click", handleRestart);
   const conditions = [
     [1, 2, 3],
     [1, 4, 7],
@@ -99,9 +100,18 @@ const DisplayController = (function () {
     form.classList.add("hide-element");
   }
 
+  function handleRestart() {
+    const squares = document.querySelectorAll("#board button");
+
+    squares.forEach((square) => {
+      square.textContent = "";
+    })
+  }
+
   return {
     renderBoard,
-    handleSubmit
+    handleSubmit,
+    restartGame
   };
 })();
 
@@ -114,3 +124,4 @@ function createPlayer(name, marker) {
 
 DisplayController.renderBoard();
 DisplayController.handleSubmit();
+DisplayController.restartGame();
