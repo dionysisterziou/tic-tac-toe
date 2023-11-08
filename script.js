@@ -32,14 +32,15 @@ const DisplayController = (function () {
   ]
 
   function addMarker(event) {
-    console.log(players);
+    const playerOne = players[0];
+    const playerTwo = players[1];
     const square = event.target;
     const turn = GameBoard.getTurn();
     const isSquareEmpty = square.textContent === "" ? true : false;
 
     if (isSquareEmpty) {
       const position = parseInt(square.getAttribute("data-position"));
-      const marker = isOdd(turn) ? "X" : "O";
+      const marker = isOdd(turn) ? playerOne.marker : playerTwo.marker;
 
       gameBoard.push({ marker, position });
       square.textContent = marker;
