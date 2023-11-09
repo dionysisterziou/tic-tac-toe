@@ -6,10 +6,11 @@ const GameBoard = (function () {
   const getTurn = () => turn;
   const getPlayers = () => players;
   const incrementTurn = () => turn++;
+  const restartTurn = () => turn = 1;
   const emptyGameBoard = () => gameBoard.length = 0;
   let turn = 1;
 
-  return { getGameBoard, getTurn, incrementTurn, addPlayer, getPlayers, emptyGameBoard };
+  return { getGameBoard, getTurn, incrementTurn, addPlayer, getPlayers, emptyGameBoard, restartTurn };
 })();
 
 const DisplayController = (function () {
@@ -109,6 +110,7 @@ const DisplayController = (function () {
     });
 
     GameBoard.emptyGameBoard();
+    GameBoard.restartTurn();
   }
 
   return {
