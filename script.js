@@ -111,6 +111,7 @@ const DisplayController = (function () {
 
     GameBoard.emptyGameBoard();
     GameBoard.restartTurn();
+    renderBoard();
   }
 
   return {
