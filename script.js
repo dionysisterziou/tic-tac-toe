@@ -36,15 +36,13 @@ const DisplayController = (function () {
   ]
 
   function addMarker(event) {
-    const playerOne = players[0];
-    const playerTwo = players[1];
     const square = event.target;
     const turn = GameBoard.getTurn();
     const isSquareEmpty = square.textContent === "" ? true : false;
 
     if (isSquareEmpty) {
       const position = parseInt(square.getAttribute("data-position"));
-      const marker = isOdd(turn) ? playerOne.marker : playerTwo.marker;
+      const marker = getCurrentPlayerMarker(turn);
 
       gameBoard.push({ marker, position });
       square.textContent = marker;
@@ -60,6 +58,13 @@ const DisplayController = (function () {
         GameBoard.incrementTurn();
       }
     }
+  }
+
+  function getCurrentPlayerMarker(turn) {
+    const playerOne = players[0];
+    const playerTwo = players[1];
+
+    return isOdd(turn) ? playerOne.marker : playerTwo.marker;
   }
 
   function isOdd(number) {
