@@ -6,9 +6,10 @@ const GameBoard = (function () {
   const getTurn = () => turn;
   const getPlayers = () => players;
   const incrementTurn = () => turn++;
+  const emptyGameBoard = () => gameBoard.length = 0;
   let turn = 1;
 
-  return { getGameBoard, getTurn, incrementTurn, addPlayer, getPlayers };
+  return { getGameBoard, getTurn, incrementTurn, addPlayer, getPlayers, emptyGameBoard };
 })();
 
 const DisplayController = (function () {
@@ -105,7 +106,9 @@ const DisplayController = (function () {
 
     squares.forEach((square) => {
       square.textContent = "";
-    })
+    });
+
+    GameBoard.emptyGameBoard();
   }
 
   return {
