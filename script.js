@@ -51,7 +51,9 @@ const DisplayController = (function () {
       const weHaveAWinner = checkResult();
 
       if (weHaveAWinner) {
-        resultContainer.textContent = isOdd(turn) ? "Player 1 wins!" : "Player 2 wins!";
+        const winner = getCurrentPlayerName(marker);
+
+        resultContainer.textContent = winner;
         squares.removeEventListener("click", addMarker);
       } else if (turn === maxTurns) {
         resultContainer.textContent = "Draw";
@@ -66,6 +68,10 @@ const DisplayController = (function () {
     const playerTwo = players[1];
 
     return isOdd(turn) ? playerOne.marker : playerTwo.marker;
+  }
+
+  function getCurrentPlayerName(marker) {
+    return marker === "X" ? players[0].name : players[1].name;
   }
 
   function isOdd(number) {
