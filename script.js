@@ -53,7 +53,7 @@ const DisplayController = (function () {
       if (weHaveAWinner) {
         const winner = getCurrentPlayerName(marker);
 
-        resultContainer.textContent = winner;
+        resultContainer.textContent = `The winner is ${winner}!`;
         squares.removeEventListener("click", addMarker);
       } else if (turn === maxTurns) {
         resultContainer.textContent = "Draw";
