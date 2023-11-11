@@ -20,6 +20,7 @@ const DisplayController = (function () {
   const board = document.querySelector("#board");
   const form = document.querySelector("#form");
   const restartButton = document.querySelector("#restartButton");
+  const resultContainer = document.querySelector("#resultContainer");
   const maxTurns = 9;
   const renderBoard = () => squares.addEventListener("click", addMarker);
   const handleSubmit = () => form.addEventListener("submit", initializePlayers);
@@ -50,12 +51,10 @@ const DisplayController = (function () {
       const weHaveAWinner = checkResult();
 
       if (weHaveAWinner) {
-        const winner = isOdd(turn) ? "Player 1 wins!" : "Player 2 wins!";
-
-        console.log(winner);
+        resultContainer.textContent = isOdd(turn) ? "Player 1 wins!" : "Player 2 wins!";
         squares.removeEventListener("click", addMarker);
       } else if (turn === maxTurns) {
-        console.log("Draw");
+        resultContainer.textContent = "Draw";
       } else {
         GameBoard.incrementTurn();
       }
@@ -115,7 +114,7 @@ const DisplayController = (function () {
     squares.forEach((square) => {
       square.textContent = "";
     });
-
+    resultContainer.textContent = "";
     GameBoard.emptyGameBoard();
     GameBoard.restartTurn();
     renderBoard();
