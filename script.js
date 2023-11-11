@@ -50,7 +50,9 @@ const DisplayController = (function () {
       const weHaveAWinner = checkResult();
 
       if (weHaveAWinner) {
-        console.log("We have a winner!");
+        const winner = isOdd(turn) ? "Player 1 wins!" : "Player 2 wins!";
+
+        console.log(winner);
         squares.removeEventListener("click", addMarker);
       } else if (turn === maxTurns) {
         console.log("Draw");
