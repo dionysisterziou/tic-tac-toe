@@ -101,6 +101,7 @@ const DisplayController = (function () {
   function initializePlayers(event) {
     event.preventDefault();
 
+    const title = document.querySelector("h1");
     const playerOneName = document.querySelector("#playerOneName").value;
     const playerTwoName = document.querySelector("#playerTwoName").value;
     const playerOne = createPlayer(playerOneName, "X");
@@ -111,6 +112,7 @@ const DisplayController = (function () {
 
     board.classList.remove("hide-element");
     restartButton.classList.remove("hide-element");
+    title.classList.add("hide-element");
     form.classList.add("hide-element");
   }
 
