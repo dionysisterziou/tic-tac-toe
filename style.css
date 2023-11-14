@@ -15,7 +15,6 @@ body {
 
 form,
 button,
-.game-button,
 .result-container {
     font-size: 18px;
 }
@@ -50,7 +49,11 @@ input {
 
 .game-board {
     display: grid;
-    grid-template: 50px 50px 50px / 50px 50px 50px;
+    grid-template: 130px 130px 130px / 130px 130px 130px;
+}
+
+.game-button {
+    font-size: 70px;
 }
 
 .hide-element {
