@@ -1,18 +1,27 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
+body,
 form {
     display: flex;
     flex-direction: column;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    /* Remove the scrollbar that was created by the default margin */
+    margin: 0;
+}
+
+form,
+button {
+    font-size: 18px;
+}
+
+form {
     gap: 35px;
     border: 2px solid black;
     padding: 15px;
-    font-size: 18px;
 }
 
 label {
@@ -24,9 +33,12 @@ input {
 }
 
 button {
-    padding: 5px;
+    padding: 8px;
     cursor: pointer;
-    font-size: 18px;
+    background-color: orangered;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
 .form-group {
