@@ -14,7 +14,9 @@ body {
 }
 
 form,
-button {
+button,
+.game-button,
+.result-container {
     font-size: 18px;
 }
 
