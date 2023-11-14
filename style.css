@@ -32,7 +32,7 @@ input {
     font-size: 20px;
 }
 
-button {
+.action-button {
     padding: 8px;
     cursor: pointer;
     background-color: orangered;
