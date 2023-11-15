@@ -54,6 +54,10 @@ input {
 .game-board {
     display: grid;
     grid-template: repeat(3, 130px) / repeat(3, 130px);
+}
+
+.game-board,
+.result-container {
     margin-bottom: 20px;
 }
 
@@ -63,7 +67,6 @@ input {
 
 .result-container {
     font-size: 30px;
-    margin-top: 10px;
 }
 
 .hide-element {

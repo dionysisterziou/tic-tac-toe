@@ -44,6 +44,9 @@ const DisplayController = (function () {
     if (isSquareEmpty) {
       const position = parseInt(square.getAttribute("data-position"));
       const marker = getCurrentPlayerMarker(turn);
+      const nextPlayer = getNextPlayerName(marker);
+
+      resultContainer.textContent = `It's ${nextPlayer}'s turn.`;
 
       gameBoard.push({ marker, position });
       square.textContent = marker;
@@ -72,6 +75,10 @@ const DisplayController = (function () {
 
   function getCurrentPlayerName(marker) {
     return marker === "X" ? players[0].name : players[1].name;
+  }
+
+  function getNextPlayerName(marker) {
+    return marker === "X" ? players[1].name : players[0].name;
   }
 
   function isOdd(number) {
@@ -114,18 +121,23 @@ const DisplayController = (function () {
     restartButton.classList.remove("hide-element");
     title.classList.add("hide-element");
     form.classList.add("hide-element");
+    resultContainer.textContent = `It's ${playerOneName}'s turn.`;
   }
 
   function handleRestart() {
+    GameBoard.emptyGameBoard();
+    GameBoard.restartTurn();
+    renderBoard();
+
     const squares = document.querySelectorAll("#board button");
+    const turn = GameBoard.getTurn();
+    const marker = getCurrentPlayerMarker(turn);
+    const player = getCurrentPlayerName(marker);
 
     squares.forEach((square) => {
       square.textContent = "";
     });
-    resultContainer.textContent = "";
-    GameBoard.emptyGameBoard();
-    GameBoard.restartTurn();
-    renderBoard();
+    resultContainer.textContent = `It's ${player}'s turn.`;
   }
 
   return {
